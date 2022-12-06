@@ -1,4 +1,0 @@
-Kitab/[B][b]in
-Kitab/[O][o]bj
-.git
-.vs
