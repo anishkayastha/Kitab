@@ -44,7 +44,7 @@ namespace Kitab.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("Kitab.Models.Book", b =>
+            modelBuilder.Entity("Kitab.Models.Author_Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,8 +55,25 @@ namespace Kitab.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Authors_Books");
+                });
+
+            modelBuilder.Entity("Kitab.Models.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -77,10 +94,6 @@ namespace Kitab.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("PublisherId");
 
@@ -105,15 +118,23 @@ namespace Kitab.Migrations
 
             modelBuilder.Entity("Kitab.Models.Category_Book", b =>
                 {
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BookId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.HasKey("CategoryId", "BookId");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Categories_Books");
                 });
@@ -143,29 +164,32 @@ namespace Kitab.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Kitab.Models.Book", b =>
+            modelBuilder.Entity("Kitab.Models.Author_Book", b =>
                 {
                     b.HasOne("Kitab.Models.Author", "Author")
-                        .WithMany("Book")
+                        .WithMany("Authors_Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Kitab.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Kitab.Models.Publisher", "Publisher")
-                        .WithMany("Book")
-                        .HasForeignKey("PublisherId")
+                    b.HasOne("Kitab.Models.Book", "Book")
+                        .WithMany("Authors_Books")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
 
-                    b.Navigation("Category");
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Kitab.Models.Book", b =>
+                {
+                    b.HasOne("Kitab.Models.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Publisher");
                 });
@@ -191,11 +215,13 @@ namespace Kitab.Migrations
 
             modelBuilder.Entity("Kitab.Models.Author", b =>
                 {
-                    b.Navigation("Book");
+                    b.Navigation("Authors_Books");
                 });
 
             modelBuilder.Entity("Kitab.Models.Book", b =>
                 {
+                    b.Navigation("Authors_Books");
+
                     b.Navigation("Categories_Books");
                 });
 
@@ -206,7 +232,7 @@ namespace Kitab.Migrations
 
             modelBuilder.Entity("Kitab.Models.Publisher", b =>
                 {
-                    b.Navigation("Book");
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

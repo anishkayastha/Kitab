@@ -12,6 +12,6 @@ namespace Kitab.Models
         public string? Bio { get; set; }
 
         //Relationships
-        public List<Book> Book { get; set; }
+        public List<Author_Book> Authors_Books { get; set; }
     }
 }

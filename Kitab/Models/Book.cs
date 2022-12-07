@@ -14,17 +14,18 @@ namespace Kitab.Models
         public DateTime PublishedDate { get; set; }
 
         //Category
-        public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public Category? Category { get; set; }
+        //public int CategoryId { get; set; }
+        //[ForeignKey("CategoryId")]
+        //public Category? Category { get; set; }
 
         //Relationships
         public List<Category_Book> Categories_Books { get; set; }
+        public List<Author_Book> Authors_Books { get; set; }
 
         //Author
-        public int AuthorId { get; set; }
+        /*public int AuthorId { get; set; }
         [ForeignKey("AuthorId")]
-        public Author Author { get; set; }
+        public Author Author { get; set; }*/
 
         //Publisher
         public int PublisherId { get; set; }
