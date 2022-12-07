@@ -17,3 +17,6 @@ app.MapControllerRoute(
 app.UseStaticFiles();
 
 app.Run();
+
+//Seed Database
+KitabDbInitializer.Seed(app);

@@ -1,6 +1,391 @@
-﻿namespace Kitab.Data
+﻿using Kitab.Data;
+using Kitab.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Kitab.Data
 {
     public class KitabDbInitializer
     {
+        public static void Seed(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<KitabDbContext>();
+
+                context.Database.EnsureCreated();
+
+                //Categories
+                if (!context.Categories.Any())
+                {
+                    context.Categories.AddRange(new List<Category>()
+                    {
+                        new Category()
+                        {
+                            Name = "Sales"
+                        },
+                        new Category()
+                        {
+                            Name = "Marketing"
+                        },
+                        new Category()
+                        {
+                            Name = "Business"
+                        },
+                        new Category()
+                        {
+                            Name = "Drama"
+                        },
+                        new Category()
+                        {
+                            Name = "Thriller"
+                        },
+                    });
+                    context.SaveChanges();
+                }
+                //Author
+                if (!context.Authors.Any())
+                {
+                    context.Authors.AddRange(new List<Author>()
+                    {
+                        new Author()
+                        {
+                            Fullname = "Dan Brown",
+                            Bio = "This is the Bio of the Dan Brown",
+                            ProfilePictureURL = "http://dotnethow.net/images/actors/actor-1.jpeg"
+
+                        },
+                        new Author()
+                        {
+                            Fullname = "Mark Strong",
+                            Bio = "This is the Bio of the Mark Strong",
+                            ProfilePictureURL = "http://dotnethow.net/images/actors/actor-2.jpeg"
+                        },
+                        new Author()
+                        {
+                            Fullname = "Manish Chaulagain",
+                            Bio = "This is the Bio of the Manish Chaulagain",
+                            ProfilePictureURL = "http://dotnethow.net/images/actors/actor-3.jpeg"
+                        },
+                        new Author()
+                        {
+                            Fullname = "Laxmi Prasad Devkota",
+                            Bio = "This is the Bio of the Laxmi Prasad Devkota",
+                            ProfilePictureURL = "http://dotnethow.net/images/actors/actor-4.jpeg"
+                        },
+                        new Author()
+                        {
+                            Fullname = "Phillip Kotler",
+                            Bio = "This is the Bio of the Phillip Kotler",
+                            ProfilePictureURL = "http://dotnethow.net/images/actors/actor-5.jpeg"
+                        }
+                    });
+                    context.SaveChanges();
+                }
+                //Publishers
+                if (!context.Publishers.Any())
+                {
+                    context.Publishers.AddRange(new List<Publisher>()
+                    {
+                        new Publisher()
+                        {
+                            Name = "Scholastic",
+                            Description = "This is the description of the Scholastic",
+                            Logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg"
+
+                        },
+                        new Publisher()
+                        {
+                            Name = "McGrawHill",
+                            Description = "This is the description of the McGrawHill",
+                            Logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg"
+                        },
+                        new Publisher()
+                        {
+                            Name = "Simon & Schuster",
+                            Description = "This is the description of the Simon & Schuster",
+                            Logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg"
+                        },
+                        new Publisher()
+                        {
+                            Name = "HarperCollins",
+                            Description = "This is the Bio of the HarperCollins",
+                            Logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg"
+                        },
+                        new Publisher()
+                        {
+                            Name = "Penguin Books",
+                            Description = "This is the Bio of the Penguin Books",
+                            Logo = "http://dotnethow.net/images/cinemas/cinema-1.jpeg"
+                        }
+                    });
+                    context.SaveChanges();
+                }
+                //Books
+                if (!context.Books.Any())
+                {
+                    context.Books.AddRange(new List<Book>()
+                    {
+                        new Book()
+                        {
+                            Title = "Kitchen Confidential",
+                            Description = "This is the Kitchen Confidential book description",
+                            Price = 39.50,
+                            ImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
+                            PublishedDate = DateTime.Now.AddDays(-10),
+                            PublisherId = 3
+                        },
+                        new Book()
+                        {
+                            Title = "Cold Sales",
+                            Description = "This is the Cold Sales book description",
+                            Price = 39.50,
+                            ImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
+                            PublishedDate = DateTime.Now.AddDays(-40),
+                            PublisherId = 1
+                        },
+                        new Book()
+                        {
+                            Title = "Sapiens",
+                            Description = "This is the Sapiens book description",
+                            Price = 39.50,
+                            ImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
+                            PublishedDate = DateTime.Now.AddDays(-120),
+                            PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Principles of Marketing",
+                            Description = "This is the Principle of Marketing book description",
+                            Price = 39.50,
+                            ImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
+                            PublishedDate = DateTime.Now.AddDays(-50),
+                            PublisherId = 5
+                        },
+                        new Book()
+                        {
+                            Title = "Sharp Objects",
+                            Description = "This is the Sharp Objects book description",
+                            Price = 39.50,
+                            ImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
+                            PublishedDate = DateTime.Now.AddDays(-100),
+                            PublisherId = 4
+                        },
+                        new Book()
+                        {
+                            Title = "The Republic",
+                            Description = "This is the The Republic book description",
+                            Price = 39.50,
+                            ImageURL = "http://dotnethow.net/images/movies/movie-3.jpeg",
+                            PublishedDate = DateTime.Now.AddDays(-90),
+                            PublisherId = 3
+                        }
+                    });
+                    context.SaveChanges();
+                }
+                //Authors & Books
+                if (!context.Authors_Books.Any())
+                {
+                    context.Authors_Books.AddRange(new List<Author_Book>()
+                    {
+                        new Author_Book()
+                        {
+                            AuthorId = 1,
+                            BookId = 1
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 3,
+                            BookId = 1
+                        },
+
+                         new Author_Book()
+                        {
+                            AuthorId = 1,
+                            BookId = 2
+                        },
+                         new Author_Book()
+                        {
+                            AuthorId = 4,
+                            BookId = 2
+                        },
+
+                        new Author_Book()
+                        {
+                            AuthorId = 1,
+                            BookId = 3
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 2,
+                            BookId = 3
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 5,
+                            BookId = 3
+                        },
+
+
+                        new Author_Book()
+                        {
+                            AuthorId = 2,
+                            BookId = 4
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 3,
+                            BookId = 4
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 4,
+                            BookId = 4
+                        },
+
+
+                        new Author_Book()
+                        {
+                            AuthorId = 2,
+                            BookId = 5
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 3,
+                            BookId = 5
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 4,
+                            BookId = 5
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 5,
+                            BookId = 5
+                        },
+
+
+                        new Author_Book()
+                        {
+                            AuthorId = 3,
+                            BookId = 6
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 4,
+                            BookId = 6
+                        },
+                        new Author_Book()
+                        {
+                            AuthorId = 5,
+                            BookId = 6
+                        },
+                    });
+                    context.SaveChanges();
+                }
+                //Categories & Books
+                if (!context.Categories_Books.Any())
+                {
+                    context.Categories_Books.AddRange(new List<Category_Book>()
+                    {
+                        new Category_Book()
+                        {
+                            CategoryId = 1,
+                            BookId = 1
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 3,
+                            BookId = 1
+                        },
+
+                         new Category_Book()
+                        {
+                            CategoryId = 1,
+                            BookId = 2
+                        },
+                         new Category_Book()
+                        {
+                            CategoryId = 4,
+                            BookId = 2
+                        },
+
+                        new Category_Book()
+                        {
+                            CategoryId = 1,
+                            BookId = 3
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 2,
+                            BookId = 3
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 5,
+                            BookId = 3
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 2,
+                            BookId = 4
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 3,
+                            BookId = 4
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 4,
+                            BookId = 4
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 2,
+                            BookId = 5
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 3,
+                            BookId = 5
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 4,
+                            BookId = 5
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 5,
+                            BookId = 5
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 3,
+                            BookId = 6
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 4,
+                            BookId = 6
+                        },
+                        new Category_Book()
+                        {
+                            CategoryId = 5,
+                            BookId = 6
+                        },
+                    });
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }
