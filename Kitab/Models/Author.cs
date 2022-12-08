@@ -7,9 +7,13 @@ namespace Kitab.Models
     {
         [Key]
         public int Id { get; set; }
-        public string? ProfilePictureURL { get; set; }
-        public string? Fullname { get; set; }
-        public string? Bio { get; set; }
+
+        [Display(Name = "Profile Picture")]
+        public string ProfilePictureURL { get; set; }
+        [Display(Name = "Full Name")]
+        public string Fullname { get; set; }
+        [Display(Name = "Biography")]
+        public string Bio { get; set; }
 
         //Relationships
         public List<Author_Book> Authors_Books { get; set; }

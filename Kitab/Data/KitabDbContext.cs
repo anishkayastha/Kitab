@@ -31,6 +31,7 @@ namespace Kitab.Data
 
             base.OnModelCreating(modelBuilder);*/
 
+
         }
 
         public DbSet<Category> Categories { get; set; }
