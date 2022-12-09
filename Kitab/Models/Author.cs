@@ -11,7 +11,7 @@ namespace Kitab.Models
         [Display(Name = "Profile Picture")]
         public string ProfilePictureURL { get; set; }
         [Display(Name = "Full Name")]
-        public string Fullname { get; set; }
+        public string FullName { get; set; }
         [Display(Name = "Biography")]
         public string Bio { get; set; }
 

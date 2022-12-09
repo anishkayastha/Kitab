@@ -7,11 +7,22 @@ namespace Kitab.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Title")]
         public string? Title { get; set; }
+
+        [Display(Name = "Description")]
         public string? Description { get; set; }
+
+        [Display(Name = "Price")]
         public double Price { get; set; }
+
+        [Display(Name = "Cover")]
         public string? ImageURL { get; set; }
+
+        [Display(Name = "Publication date")]
         public DateTime PublishedDate { get; set; }
+
 
         //Category
         //public int CategoryId { get; set; }

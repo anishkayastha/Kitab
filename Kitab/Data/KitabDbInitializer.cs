@@ -45,32 +45,32 @@ namespace Kitab.Data
                 {
                     new Author()
                     {
-                        Fullname = "Dan Brown",
+                        FullName = "Dan Brown",
                         Bio = "This is the Bio of the Dan Brown",
                         ProfilePictureURL = "http://dotnethow.net/images/actors/actor-1.jpeg"
 
                     },
                     new Author()
                     {
-                        Fullname = "Mark Strong",
+                        FullName = "Mark Strong",
                         Bio = "This is the Bio of the Mark Strong",
                         ProfilePictureURL = "http://dotnethow.net/images/actors/actor-2.jpeg"
                     },
                     new Author()
                     {
-                        Fullname = "Manish Chaulagain",
+                        FullName = "Manish Chaulagain",
                         Bio = "This is the Bio of the Manish Chaulagain",
                         ProfilePictureURL = "http://dotnethow.net/images/actors/actor-3.jpeg"
                     },
                     new Author()
                     {
-                        Fullname = "Laxmi Prasad Devkota",
+                        FullName = "Laxmi Prasad Devkota",
                         Bio = "This is the Bio of the Laxmi Prasad Devkota",
                         ProfilePictureURL = "http://dotnethow.net/images/actors/actor-4.jpeg"
                     },
                     new Author()
                     {
-                        Fullname = "Phillip Kotler",
+                        FullName = "Phillip Kotler",
                         Bio = "This is the Bio of the Phillip Kotler",
                         ProfilePictureURL = "http://dotnethow.net/images/actors/actor-5.jpeg"
                     }
