@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "awxWUVA+6Qc4AaqQ/PuHPqkCH3NbLACUKa7NGdlvBew=",
+  "Hash": "ViL96MafQtUQnq/l7j8NjxrTRvKuMScPBMrcCHs824U=",
   "Source": "Kitab",
   "BasePath": "_content/Kitab",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\Anish1\\source\\repos\\Kitab\\Kitab\\wwwroot\\favicon.ico",
+      "SourceId": "Kitab",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Anish1\\source\\repos\\Kitab\\Kitab\\wwwroot\\",
+      "BasePath": "_content/Kitab",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
       "Identity": "C:\\Users\\Anish1\\source\\repos\\Kitab\\Kitab\\wwwroot\\js\\clear_validation.js",
