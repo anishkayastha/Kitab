@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Kitab.Data.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kitab.Models
 {
-    public class Author
+    public class Author : IEntityBase
     {
         [Key]
         public int Id { get; set; }
