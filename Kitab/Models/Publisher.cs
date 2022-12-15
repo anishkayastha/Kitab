@@ -9,15 +9,15 @@ namespace Kitab.Models
         public int Id { get; set; }
 
         [Display(Name = "Logo")]
-        public string Logo { get; set; }
+        public string? Logo { get; set; }
 
         [Display(Name = "Publisher Name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Display(Name = "Description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         //Relationships
-        public List<Book> Books { get; set; }
+        public List<Book>? Books { get; set; }
     }
 }
