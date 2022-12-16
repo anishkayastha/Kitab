@@ -9,6 +9,9 @@ builder.Services.AddDbContext<KitabDbContext>(options =>
 
 //Services configuration
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
