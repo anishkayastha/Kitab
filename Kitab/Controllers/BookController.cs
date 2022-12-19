@@ -20,8 +20,15 @@ namespace Kitab.Controllers
             /*var allbooks = _context.Books.Include(n => n.Publisher).OrderBy(n => n.Title).ToList();*/
             //LINQ - Table join garne ani chahiteko 
             //ViewBag
-            var allBooks = await _service.GetAllAsync();
+            var allBooks = await _service.GetAllAsync(n => n.Publisher!);
             return View(allBooks);
+        }
+
+        //GET: Book/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var bookDetails = await _service.GetBookByIdAsync(id);
+            return View(bookDetails);
         }
     }
 }
