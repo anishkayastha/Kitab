@@ -15,10 +15,9 @@ namespace Kitab.Data.Services
         public async Task<Book> GetBookByIdAsync(int id)
         {
             var bookDetails = await _context.Books
-                .Include(p => p.Publisher!)
-                .Include(cb => cb.Categories_Books!)
-                .Include(ab => ab.Authors_Books!)
-                .ThenInclude(a => a.Author!)
+                .Include(p => p.Publisher)
+                .Include(cb => cb.Categories_Books!).ThenInclude(c => c.Category)
+                .Include(ab => ab.Authors_Books!).ThenInclude(a => a.Author)
                 .FirstOrDefaultAsync(n => n.Id == id);
 
             return bookDetails!;

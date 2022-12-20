@@ -58,16 +58,10 @@ namespace Kitab.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Publisher publisher)
         {
-            if (!ModelState.IsValid)
-                return View(publisher);
-
-            if (id == publisher.Id)
-            {
+                if (!ModelState.IsValid) return View(publisher);
                 await _service.UpdateAsync(id, publisher);
                 return RedirectToAction(nameof(Index));
-            }
-            return View(publisher);
-            
+
         }
 
         //GET: Publishers/Delete/1
