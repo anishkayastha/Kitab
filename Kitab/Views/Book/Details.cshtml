@@ -31,35 +31,14 @@
                         </p>
                         <p class="card-text">
                             <b>Categories: </b>
-                            @*<div class="row">
-                                <div class="d-flex align-items-center">
-                                    @foreach (var author in Model.Authors_Books!)
-                                    {
-                                        <div class="flex-column d-inline-block text-center m-2">
-                                            <img class="border-info rounded-circle" src="@author.Author!.ProfilePictureURL" style="max-width: 150px" />
-                                            <br />
-                                            <a asp-controller="Author" asp-action="Details" asp-route-id="@author.AuthorId">
-                                                @author.Author!.FullName
-                                            </a>
-                                        </div>
-                                    }
-                                </div>
-                            </div>*@
-                            @*<div class="row">
-                                <div class="d-flex align-items-center">*@
+                           
                                     @foreach (var category in Model.Categories_Books!)
                                     {
                                         <span class=" d-inline-block text-center p-1 text-light bg-primary rounded">
                                             @category.Category!.Name
                                         </span>
-                                        @*<div class="flex-column d-inline-block text-center m-2">
-                                            <a asp-controller="Category" asp-action="Details" asp-route-id="@category.CategoryId">
-                                                @category.Category!.Name
-                                            </a>
-                                        </div>*@
+                                       
                                     }
-                               @* </div>
-                            </div>*@
                         </p>
                         <p class="card-text"><b>Published Date: </b>@Model.PublishedDate.ToString("dd MMMM yyyy")</p>
                         @*<p class="card-text ">
