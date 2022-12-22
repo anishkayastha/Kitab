@@ -7,6 +7,8 @@ namespace Kitab.Data.ViewModels
 {
     public class NewBookVM
     {
+        public int Id { get; set; }
+
         [Display(Name = "Book Title")]
         [Required(ErrorMessage = "Title is required")]
         public string? Title { get; set; }

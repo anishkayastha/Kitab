@@ -75,5 +75,56 @@ namespace Kitab.Data.Services
 
             return response;
         }
+
+        public async Task UpdateBookAsync(NewBookVM data)
+        {
+            var dbBook = await _context.Books.FirstOrDefaultAsync(n => n.Id == data.Id);
+
+            if (dbBook != null)
+            {
+                dbBook.Title = data.Title;
+                dbBook.Description = data.Description;
+                dbBook.Price = data.Price;
+                dbBook.ImageURL = data.ImageURL;
+                dbBook.PublishedDate = data.PublishedDate;
+                dbBook.PublisherId = data.PublisherId;
+
+                await _context.SaveChangesAsync();
+            }
+
+            //Remove existing authors
+            var existingAuthorsDb = _context.Authors_Books.Where(n => n.BookId == data.Id).ToList();
+            _context.Authors_Books.RemoveRange(existingAuthorsDb);
+            await _context.SaveChangesAsync();
+
+            //Remove existing categories
+            var existingCategoriesDb = _context.Categories_Books.Where(n => n.BookId == data.Id).ToList();
+            _context.Categories_Books.RemoveRange(existingCategoriesDb);
+            await _context.SaveChangesAsync();
+
+            //Add Categories
+            foreach (var categoryId in data.CategoryIds!)
+            {
+                var newCategoryBook = new Category_Book()
+                {
+                    BookId = data.Id,
+                    CategoryId = categoryId
+                };
+                await _context.Categories_Books.AddAsync(newCategoryBook);
+            }
+            await _context.SaveChangesAsync();
+
+            //Add Authors
+            foreach (var authorId in data.AuthorIds!)
+            {
+                var newAuthorBook = new Author_Book()
+                {
+                    BookId = data.Id,
+                    AuthorId = authorId
+                };
+                await _context.Authors_Books.AddAsync(newAuthorBook);
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

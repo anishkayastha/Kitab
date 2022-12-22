@@ -27,10 +27,17 @@
                         <div class="card-body">
                             <p class="card-text">@item.Description</p>
                             <p class="card-text"><b>Publisher Name: </b>@item.Publisher!.Name</p>
-                            @*<p class="card-text"><b>Category: </b>@item.Category.Name</p>*@
-                            @*<p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
-                            <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
-                            <p class="card-text ">
+                            <p class="card-text">
+                                <b>Categories: </b>@item.Categories_Books!
+                                @foreach (var category in item.Categories_Books!)
+                                {
+                                    <span class=" d-inline-block text-center p-1 text-light bg-primary rounded">
+                                        @category.Category!.Name
+                                    </span>
+                                }
+                            </p>
+                            <p class="card-text"><b>Publication Date: </b>@item.PublishedDate.ToString("dd MMM yy")</p>
+                            @*<p class="card-text ">
                                 <b>Status: </b>
                                 @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
                                 {

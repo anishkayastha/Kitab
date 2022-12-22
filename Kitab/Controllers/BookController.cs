@@ -26,6 +26,20 @@ namespace Kitab.Controllers
             return View(allBooks);
         }
 
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allBooks = await _service.GetAllAsync(n => n.Publisher!);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = allBooks.Where(n => n.Title!.ToLower().Contains(searchString.ToLower()) || n.Description!.ToLower().Contains
+                    (searchString.ToLower())).ToList();
+                return View("Index", filteredResult);
+            }
+
+            return View("Index", allBooks);
+        }
+
         //GET: Book/Details/1
         public async Task<IActionResult> Details(int id)
         {
@@ -60,6 +74,56 @@ namespace Kitab.Controllers
             }
 
             await _service.AddNewBookAsync(book);
+            return RedirectToAction(nameof(Index));
+        }
+
+        //GET: Books/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var bookDetails = await _service.GetBookByIdAsync(id);
+            if (bookDetails == null)
+                return View("NotFound");
+
+            var response = new NewBookVM()
+            {
+                Id = bookDetails.Id,
+                Title = bookDetails.Title,
+                Description = bookDetails.Description,
+                Price = bookDetails.Price,
+                PublishedDate = bookDetails.PublishedDate,
+                ImageURL = bookDetails.ImageURL,
+                PublisherId = bookDetails.PublisherId,
+                AuthorIds = bookDetails.Authors_Books!.Select(n => n.AuthorId).ToList(),
+                CategoryIds = bookDetails.Categories_Books!.Select(n => n.CategoryId).ToList()
+            };
+            
+            var bookDropdownsData = await _service.GetNewBookDropdownsValues();
+
+            ViewBag.Publishers = new SelectList(bookDropdownsData.Publishers, "Id", "Name");
+            ViewBag.Categories = new SelectList(bookDropdownsData.Categories, "Id", "Name");
+            ViewBag.Authors = new SelectList(bookDropdownsData.Authors, "Id", "FullName");
+
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewBookVM book)
+        {
+            if (id != book.Id)
+                return View("NotFound");
+
+            if (!ModelState.IsValid)
+            {
+                var bookDropdownsData = await _service.GetNewBookDropdownsValues();
+
+                ViewBag.Publishers = new SelectList(bookDropdownsData.Publishers, "Id", "Name");
+                ViewBag.Categories = new SelectList(bookDropdownsData.Categories, "Id", "Name");
+                ViewBag.Authors = new SelectList(bookDropdownsData.Authors, "Id", "FullName");
+
+                return View(book);
+            }
+
+            await _service.UpdateBookAsync(book);
             return RedirectToAction(nameof(Index));
         }
     }

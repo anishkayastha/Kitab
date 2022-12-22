@@ -31,14 +31,13 @@
                         </p>
                         <p class="card-text">
                             <b>Categories: </b>
-                           
-                                    @foreach (var category in Model.Categories_Books!)
-                                    {
-                                        <span class=" d-inline-block text-center p-1 text-light bg-primary rounded">
-                                            @category.Category!.Name
-                                        </span>
+                            @foreach (var category in Model.Categories_Books!)
+                            {
+                                <span class=" d-inline-block text-center p-1 text-light bg-primary rounded">
+                                    @category.Category!.Name
+                                </span>
                                        
-                                    }
+                            }
                         </p>
                         <p class="card-text"><b>Published Date: </b>@Model.PublishedDate.ToString("dd MMMM yyyy")</p>
                         @*<p class="card-text ">
@@ -92,5 +91,5 @@
         </div>
     </div>
 </div>
-@*
-@await Html.PartialAsync("_CreateModel", "Movies") *@
+
+@*@await Html.PartialAsync("_CreateModel", "Book") *@
