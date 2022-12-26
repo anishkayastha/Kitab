@@ -41,5 +41,10 @@ namespace Kitab.Data
         public DbSet<Author_Book> Authors_Books { get; set; } = null!;
         public DbSet<Publisher> Publishers { get; set; } = null!;
 
+        //Orders related tables
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; } = null!;
+
     }
 }

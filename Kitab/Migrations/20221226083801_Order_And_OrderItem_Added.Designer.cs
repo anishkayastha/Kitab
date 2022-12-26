@@ -4,6 +4,7 @@ using Kitab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kitab.Migrations
 {
     [DbContext(typeof(KitabDbContext))]
-    partial class KitabDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226083801_Order_And_OrderItem_Added")]
+    partial class Order_And_OrderItem_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,30 +222,6 @@ namespace Kitab.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Kitab.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("Kitab.Models.Author_Book", b =>
                 {
                     b.HasOne("Kitab.Models.Author", "Author")
@@ -310,15 +288,6 @@ namespace Kitab.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("Kitab.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("Kitab.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
-
-                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Kitab.Models.Author", b =>

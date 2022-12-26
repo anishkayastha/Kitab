@@ -4,6 +4,7 @@ using Kitab.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kitab.Migrations
 {
     [DbContext(typeof(KitabDbContext))]
-    partial class KitabDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226084838_ShoppingCartItems_Added")]
+    partial class ShoppingCartItems_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,7 +222,7 @@ namespace Kitab.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Kitab.Models.ShoppingCartItem", b =>
+            modelBuilder.Entity("Kitab.Models.ShoppingCarItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,7 +243,7 @@ namespace Kitab.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("ShoppingCartItems");
+                    b.ToTable("ShoppingCarItems");
                 });
 
             modelBuilder.Entity("Kitab.Models.Author_Book", b =>
@@ -312,7 +314,7 @@ namespace Kitab.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Kitab.Models.ShoppingCartItem", b =>
+            modelBuilder.Entity("Kitab.Models.ShoppingCarItem", b =>
                 {
                     b.HasOne("Kitab.Models.Book", "Book")
                         .WithMany()
