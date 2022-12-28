@@ -10,11 +10,21 @@ namespace Kitab.Controllers
     {
         private readonly IBookService _bookService;
         private readonly ShoppingCart _shoppingCart;
-        public OrderController(IBookService bookService, ShoppingCart shoppingCart)
+        private readonly IOrderService _orderService;   
+        public OrderController(IBookService bookService, ShoppingCart shoppingCart, IOrderService orderService)
         {
             _bookService = bookService;
             _shoppingCart = shoppingCart;
+            _orderService = orderService;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            string userId = "";
+            var orders = await _orderService.GetOrdersByUserIdAsync(userId);
+            return View(orders);
+        }
+
         public IActionResult ShoppingCart()
         {
             var items = _shoppingCart.GetShoppingCartItems();
@@ -50,6 +60,19 @@ namespace Kitab.Controllers
                 _shoppingCart.RemoveItemFromCart(item);
             }
             return RedirectToAction(nameof(ShoppingCart));
+        }
+
+        public async Task<IActionResult> CompleteOrder()
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            string userId = "";
+            string userEmailAddress = "";
+
+            await _orderService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _shoppingCart.ClearShoppingCartAsync();
+
+            return View("OrderCompleted");
+
         }
     }
 }

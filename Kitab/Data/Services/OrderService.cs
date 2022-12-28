@@ -1,22 +1,44 @@
 ﻿using Kitab.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kitab.Data.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly KitabDbContent _context;
-        public OrderService(KitabDbContent context)
+        private readonly KitabDbContext _context;
+        public OrderService(KitabDbContext context)
         {
             _context = context;
         }
-        public Task<List<Order>> GetOrdersByUserIdAsync(string userId)
+
+        public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
         {
-            throw new NotImplementedException();
+            var orders = await _context.Orders.Include(n => n.OrderItems!).ThenInclude(n => n.Book).Where(n => n.UserId == userId).ToListAsync();
+            return orders;
         }
 
-        public Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress)
+        public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress)
         {
-            throw new NotImplementedException();
+            var order = new Order()
+            {
+                UserId = userId,
+                Email = userEmailAddress,
+            };
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            foreach (var item in items)
+            {
+                var orderItem = new OrderItem()
+                {
+                    Amount = item.Amount,
+                    BookId = item.Book!.Id,
+                    OrderId = order.Id,
+                    Price = item.Book.Price
+                };
+                await _context.OrderItems.AddAsync(orderItem);
+            }
+            await _context.SaveChangesAsync();
         }
     }
 }
