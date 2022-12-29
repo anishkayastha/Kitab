@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Kitab.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Kitab.Data
 {
-    public class KitabDbContext: DbContext
+    public class KitabDbContext: IdentityDbContext<ApplicationUser>
     {
         public KitabDbContext(DbContextOptions<KitabDbContext> options) : base(options)
         {
@@ -27,9 +28,9 @@ namespace Kitab.Data
             /*modelBuilder.Entity<Category_Book>()
                 .HasRequired(c => c.Categories_Books)
                 .WithMany()
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(false);*/
 
-            base.OnModelCreating(modelBuilder);*/
+            base.OnModelCreating(modelBuilder);
 
 
         }
