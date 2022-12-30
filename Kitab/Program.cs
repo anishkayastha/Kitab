@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Kitab.Data;
 using Kitab.Data.Services;
 using Kitab.Data.Cart;
+using Kitab.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +21,14 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
+//Authentication and authorization
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<KitabDbContext>();
+builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -48,5 +58,6 @@ app.MapControllerRoute(
 
 //Seed Database
 KitabDbInitializer.Seed(app);
+KitabDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 app.Run();
