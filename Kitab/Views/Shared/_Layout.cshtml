@@ -33,16 +33,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index"><i class="fa-solid fa-book-open"></i> Books</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="naBarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-gear"></i> Management
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navBarDropdown">
-                                <li><a class="dropdown-item" asp-controller="Category" asp-action="Index"><i class="fa-solid fa-gears"></i> Categories</a></li>
-                                <li><a class="dropdown-item" asp-controller="Publisher" asp-action="Index"><i class="fa-solid fa-building"></i> Publishers</a></li>
-                                <li><a class="dropdown-item" asp-controller="Author" asp-action="Index"><i class="fa-solid fa-user"></i> Authors</a></li>
-                            </ul>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="naBarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-gear"></i> Management
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navBarDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Category" asp-action="Index"><i class="fa-solid fa-gears"></i> Categories</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Publisher" asp-action="Index"><i class="fa-solid fa-building"></i> Publishers</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Author" asp-action="Index"><i class="fa-solid fa-user"></i> Authors</a></li>
+                                </ul>
+                            </li>
+                        }
+                        
                     </ul>
 
                     <form class="form-inline my-2 my-lg-0" asp-controller="Book" asp-action="Filter" style="padding-right: 25px;">
@@ -56,23 +60,8 @@
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
 
-                    <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
-                        <i class="bi bi-box-arrow-in-right"></i> Log in
-                    </a>
-
-                    <div class="dropdown">
-                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-badge"></i> Hello User
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="profile-btn">
-                            <li>
-                                <a class="dropdown-item" asp-controller="Order" asp-action="Index">
-                                    <i class="bi bi-list"></i> Orders
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    @*<partial name="_Identity.cshtml" />*@
+                    
+                    <partial name="_Identity.cshtml" />
                 </div>
             </div>
         </nav>

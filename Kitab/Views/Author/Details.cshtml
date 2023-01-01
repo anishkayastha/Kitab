@@ -35,7 +35,11 @@
                 <br />
                 <div class="form-group">
                     @*what is asp route id?*@
-                    <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id" >Edit</a>
+                    @if (User.Identity!.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+
+                    }
                     <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                 </div>
             </div>
